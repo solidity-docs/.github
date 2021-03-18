@@ -1,16 +1,16 @@
-Maintainer Guide
+## Maintainer Guide
 
 This document lists the responsibilities and resources available to maintainers of the Solidity documentation translation forks.
 
 ### Maintainer Responsibilities
 
 As maintainers of one of the Solidity doc translations we ask you to please:
-Track the process of the translation in the [translation checklist]().
-Review PRs made by contributors in a timely manner.
-Make sure that the translations follow the [translation style guide](https://docs.soliditylang.org/en/latest/contributing.html#documentation-style-guide) outlined in the Solidity docs.
-Regularly check if the translation is up-to-date.
-Inform the Solidity team once your translation has reached the state where it can be published by adding it to the Solidity docs.
-Act as point of contact for your language and answer questions from both contributors to your language and the core Solidity team.
+- Track the process of the translation in the [translation checklist]().
+- Review PRs made by contributors in a timely manner.
+- Make sure that the translations follow the [translation style guide](https://docs.soliditylang.org/en/latest/contributing.html#documentation-style-guide) outlined in the Solidity docs.
+- Regularly check if the translation is up-to-date.
+- Inform the Solidity team once your translation has reached the state where it can be published by adding it to the Solidity docs.
+- Act as point of contact for your language and answer questions from both contributors to your language and the core Solidity team.
 
 ### Tips
 
