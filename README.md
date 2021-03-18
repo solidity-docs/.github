@@ -25,7 +25,7 @@ However, in order to make things easier for the contributors and assure some sor
 
 To start with a new language, adhere to the following process:
 
-Find at least one other contributor to join you in being the maintainer (main contributor and owner) of this language. Being the maintainer of the translation requires you to organize the translation efforts for this respective language, assure quality and accuracy and make sure translations are kept in sync and are on an up-to-date level. You find an overview and tips in the [maintainer guide]https://github.com/solidity-docs/translation-guide/blob/main/maintainer-guide.md).
+Find at least one other contributor to join you in being the maintainer (main contributor and owner) of this language. Being the maintainer of the translation requires you to organize the translation efforts for this respective language, assure quality and accuracy and make sure translations are kept in sync and are on an up-to-date level. You find an overview and tips in the [maintainer guide](https://github.com/solidity-docs/translation-guide/blob/main/maintainer-guide.md).
 
 If you don’t know of any other translators that want to join your language, feel free to create a topic in the [documentation category](https://forum.soliditylang.org/c/documentation/8) of the Solidity forum to find more contributors.
 
