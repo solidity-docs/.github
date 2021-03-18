@@ -47,7 +47,7 @@ As a next step, create a new repository in this organization. The name of the re
 
 Then, go to the current Solidity repository and copy the [docs](https://github.com/ethereum/solidity/tree/develop/docs) folder content into your language repository.
 
-That's it, now you can start translating! If you like, you can create translatable files following [this readthedocs translations guide](https://docs.readthedocs.io/en/stable/guides/manage-translations.html#create-translatable-files).
+That's it, now you can start translating! Make sure to create an issue with the [translations progress checklist](https://github.com/solidity-docs/translation-guide/blob/main/progress-checklist.md) in your repo to track the progress and please follow the recommendations outlined in the [maintainer guide](https://github.com/solidity-docs/translation-guide/blob/main/maintainer-guide.md).
 
 Once your translations is advanced and you have checked the first part of the [translations progress checklist](https://github.com/solidity-docs/translation-guide/blob/main/progress-checklist.md), please let us know and we will consider adding your translation to the [language flyout menu](https://docs.readthedocs.io/en/stable/localization.html#project-with-multiple-translations) of the offical Solidity documentation!
 
