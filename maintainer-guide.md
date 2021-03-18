@@ -1,4 +1,4 @@
-Maintainer Guide
+## Maintainer Guide
 
 This document lists the responsibilities and resources available to maintainers of the Solidity documentation translation forks.
 
