@@ -23,7 +23,7 @@ Please be prompt with your translations! If you find that you can't commit anymo
 When someone likes to contribute, edit this issue with the username of the contributor, and with the PR. 
 
 E.g. 
-[] Index (@franzihei) #1
+- [ ] index (@franzihei) #1
 
 When PRs are merged, make sure to mark that page as completed.
 
@@ -32,37 +32,37 @@ When PRs are merged, make sure to mark that page as completed.
 These pages need to be translated before the translation will be added as a new language to the Solidity docs flyout menu. Please translate these pages first. 
 
 #### Basics
-- [] index
-- [] intro-to-smart-contracts
-- [] installing-solidity
-- [] solidity-by-example
+- [ ] index
+- [ ] intro-to-smart-contracts
+- [ ] installing-solidity
+- [ ] solidity-by-example
 
 #### Language Description
-- [] layout-of-source-files
-- [] structure-of-a-contract
-- [] types
-- [] units-and-global-variables
-- [] control-structures
-- [] contracts
-- [] assembly
-- [] cheatsheet
-- [] grammar
+- [ ] layout-of-source-files
+- [ ] structure-of-a-contract
+- [ ] types
+- [ ] units-and-global-variables
+- [ ] control-structures
+- [ ] contracts
+- [ ] assembly
+- [ ] cheatsheet
+- [ ] grammar
 
 #### Internals
-- [] layout_in_storage
-- [] layout_in_memory
-- [] layout_in_calldata
-- [] variable_cleanup
-- [] source_mappings
-- [] optimiser
-- [] metadata
-- [] abi-spec
+- [ ] layout_in_storage
+- [ ] layout_in_memory
+- [ ] layout_in_calldata
+- [ ] variable_cleanup
+- [ ] source_mappings
+- [ ] optimiser
+- [ ] metadata
+- [ ] abi-spec
 
 #### Additional Material
-- [] yul
-- [] natspec-format
-- [] security-considerations
-- [] common-patterns
+- [ ] yul
+- [ ] natspec-format
+- [ ] security-considerations
+- [ ] common-patterns
 
 ### Next Steps
 
@@ -70,16 +70,16 @@ These are the next most important translations, ordered by importance:
 
 #### Additional Material
 
-- [] 050-breaking-changes
-- [] 060-breaking-changes
-- [] 070-breaking-changes
-- [] 080-breaking-changes
-- [] resources
-- [] using-the-compiler
-- [] style-guide
-- [] bugs
-- [] contributing
-- [] brand-guide
+- [ ] 050-breaking-changes
+- [ ] 060-breaking-changes
+- [ ] 070-breaking-changes
+- [ ] 080-breaking-changes
+- [ ] resources
+- [ ] using-the-compiler
+- [ ] style-guide
+- [ ] bugs
+- [ ] contributing
+- [ ] brand-guide
 
 ### Additional Translations
 
