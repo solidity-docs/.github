@@ -70,16 +70,16 @@ These are the next most important translations, ordered by importance:
 
 #### Additional Material
 
-- [ ] 050-breaking-changes
-- [ ] 060-breaking-changes
-- [ ] 070-breaking-changes
-- [ ] 080-breaking-changes
-- [ ] resources
 - [ ] using-the-compiler
-- [ ] style-guide
-- [ ] bugs
 - [ ] contributing
+- [ ] 080-breaking-changes
+- [ ] 070-breaking-changes
+- [ ] 060-breaking-changes
+- [ ] 050-breaking-changes
+- [ ] resources
+- [ ] style-guide
 - [ ] brand-guide
+- [ ] bugs
 
 ### Additional Translations
 
