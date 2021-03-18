@@ -37,7 +37,7 @@ For example:
 {
  "name": "German",
  "code": "de",
-  "maintainers": ["franzihei", "chriseth"]
+ "maintainers": ["franzihei", "chriseth"]
 }
 ```
 
