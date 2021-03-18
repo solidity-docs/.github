@@ -14,6 +14,9 @@ As maintainers of one of the Solidity doc translations we ask you to please:
 
 ### Tips
 
+#### File, Tags and Reference Names
+Please do not change the names of the files and also keep the names of all tags and references.
+
 #### Glossary
 Consider making a glossary of the translations of technical and Solidity-specific terms. Put this in a highly visible location (the README or a pinned issue).
 
@@ -24,6 +27,10 @@ Also, create a style guide to define additional rules to follow in translation. 
 
 Decide how many reviewers you want to review each translated page before it can be merged in. If your team is small and busy, you may only be able to have one reviewer so that translators don't get blocked. If your team is bigger, consider having two reviewers so you have a stronger guarantee that the page is correct.
 
+#### Translatable Files
+
+If you like, you can create translatable files following [this readthedocs translations guide](https://docs.readthedocs.io/en/stable/guides/manage-translations.html#create-translatable-files). While these can be helpful for some, they are not necessarily needed to translate the documentation.
+ 
 ### Need Help or Have Questions?
 If you have a question that isn't addressed here, you can visit the [Documentation category](https://forum.soliditylang.org/c/documentation/8) of the Solidity forum and ask your fellow translators for help!
 
