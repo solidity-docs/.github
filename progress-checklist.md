@@ -77,15 +77,14 @@ These are the next most important translations, ordered by importance:
 - [ ] 060-breaking-changes
 - [ ] 050-breaking-changes
 - [ ] resources
-- [ ] style-guide
-- [ ] brand-guide
 - [ ] bugs
 
 ### Additional Translations
 
 These are not the primary translation targets but still a nice to have!
 
-
+- [ ] style-guide
+- [ ] brand-guide
 
 
 _Credits: This doc is derived from the [Progress Template](https://github.com/reactjs/reactjs.org-translation/blob/master/PROGRESS.template.md) of the ReactJS Localization Team._
