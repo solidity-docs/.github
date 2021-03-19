@@ -30,6 +30,10 @@ Decide how many reviewers you want to review each translated page before it can 
 #### Translatable Files
 
 If you like, you can create translatable files following [this readthedocs translations guide](https://docs.readthedocs.io/en/stable/guides/manage-translations.html#create-translatable-files). While these can be helpful for some, they are not necessarily needed to translate the documentation.
+
+#### Machine Translations
+
+Machine translations (e.g. using [DeepL](https://www.deepl.com/translator)) can help get big texts translated more quickly. Please make sure to carefully proof-read all machine translations since especially technical terms might not be reflected correctly.
  
 ### Need Help or Have Questions?
 If you have a question that isn't addressed here, you can visit the [Documentation category](https://forum.soliditylang.org/c/documentation/8) of the Solidity forum and ask for help!
