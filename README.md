@@ -29,7 +29,7 @@ Find at least one other contributor to join you in being the maintainer (main co
 
 If you don’t know of any other translators that want to join your language, feel free to create a topic in the [documentation category](https://forum.soliditylang.org/c/documentation/8) of the Solidity forum to find more contributors.
 
-Once you have your team of min. 2 contributors, create a PR to the langs repo consisting of file ``{lang-code}.json`` including the English name of the language, the [language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) and a list of maintainers.
+Once you have your team of min. 2 contributors, create a PR to the langs folder consisting of file ``{lang-code}.json`` including the English name of the language, the [language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) and a list of maintainers.
 
 For example:
 
