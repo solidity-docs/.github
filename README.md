@@ -1,6 +1,6 @@
 # Solidity Documentation Translation Guide
 
-Hello und welcome to the [Solidity documentation](http://docs.soliditylang.org/) translations GitHub organization! Great to have you here. 😊
+Hello and welcome to the [Solidity documentation](http://docs.soliditylang.org/) translations GitHub organization! Great to have you here. 😊
 
 In this org, we coordinate all community-driven translation efforts. 
 
