@@ -1,0 +1,69 @@
+name: daily docs sync PR
+
+on:
+  schedule:
+    # Runs "at minute 44 past midnight" (see https://crontab.guru)
+    # Reason is avoiding full hour peak
+    - cron: "44 0 * * *"
+
+env:
+  BOT_USERNAME: soldocsbot
+  BOT_EMAIL: solidity-docs-translations@ethereum.org
+  GITHUB_REPOSITORY_OWNER: solidity-docs
+  # comma separated list of labels
+  LABELS: sync,automated-pr
+
+jobs:
+  createPullRequest:
+    runs-on: ubuntu-latest
+    strategy:
+      # In the context matrix strategy, fail-fast means, if one of the jobs
+      # fails,the rest of the jobs will be canceled. In our case, this can
+      # be a limitation. When merging or creating PR to one repository fails,
+      # the rest still can be good.
+      fail-fast: false
+      matrix:
+        # This means, that all pull requests will be processed simultaneously
+        # and independently of each other.
+        repos: ["placeholder"]
+    steps:
+      - name: Fetch translation repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT }}
+          repository: ${{ env.GITHUB_REPOSITORY_OWNER }}/${{ matrix.repos }}
+          # By default, checkout is fetching only the last commit. This will
+          # cause "unrelated histories" error. "0" means unlimited fetch-depth.
+          fetch-depth: 0
+
+      - name: Fetch bot's repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT }}
+          repository: ${{ github.repository }}
+          path: .github-workflow
+
+      - name: Prepare pull request content
+        id: prepare-pr
+        run: |
+          .github-workflow/scripts/merge-conflicts.sh "$BOT_USERNAME" "$BOT_EMAIL"
+          .github-workflow/scripts/generate-pr-body.sh
+          .github-workflow/scripts/set-assignees.sh "${{ matrix.repos }}"
+
+      - name: Remove this repository
+        run: |
+          rm -rf .github-workflow
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: "${{ secrets.PAT }}"
+          commit-message: "${{ env.pr_title }}"
+          committer: "${{ env.BOT_USERNAME }} <${{ env.BOT_EMAIL }}>"
+          author: "${{ env.BOT_USERNAME }} <${{ env.BOT_EMAIL }}>"
+          branch: "${{ steps.prepare-pr.outputs.branch_name }}"
+          title: "${{ env.pr_title }}"
+          body: "${{ env.pr_body }}"
+          labels: "${{ env.LABELS }}"
+          assignees: ${{ env.assignee }}
+          reviewers: ${{ env.reviewer }}
