@@ -1,0 +1,103 @@
+## Solidity Translation Bot
+
+### Setting up the Bot
+- Create a new GitHub account and set up [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+- Go to repository Settings -> Security -> Secrets -> Actions -> Repository secrets
+- Create a new secret: `PAT` with Personal Access Token of a bot
+- In `create-pull-request.yaml` update bot related fields:
+    - `jobs.createPullRequest.env.bot_username`
+    - `jobs.createPullRequest.env.bot_email`
+
+### Adding new translation repository
+The Bot requires related histories between original and translated repositories.
+
+One way to achieve common history is to:
+- clone [ethereum/solidity](https://github.com/ethereum/solidity/)
+- remove everything but `docs/` directory
+- remove all branches but `develop`
+- create a new repository in the [solidity-docs](https://github.com/solidity-docs) organization
+- grant bot write access to that repository
+- push from your clone to the newly created repository
+
+Another option would be maintaining an up-to-date `en-english` repository as a template - with only the `docs` directory.
+That repository would be ready to fork and create a translation repository.
+In that case, the procedure would look like this:
+- `git clone --bare git@github.com:solidity-docs/en-english.git`
+- create a new GitHub repository, e.g. `solidity-docs/pl-polish`
+- grant bot write access to that repository
+- `cd en-english && git push git@github.com:solidity-docs-test/pl-polish.git`
+
+In either case, pull request workflow file has to be updated:
+- edit `.github/workflow/create-pull-request.yaml`
+- add language code to `jobs.createPullRequest.strategy.matrix.repos`
+
+### How to transform translation repository to compatible form
+- check for the date of first translation commit, e.g. [french](https://github.com/solidity-docs/fr-french/), first commit is 2022-02-04
+- clone solidity repository
+    ```bash
+    git clone git@github.com:ethereum/solidity.git
+    ```
+- rename solidity repository as translation repository, e.g.
+    ```bash
+    mv solidity fr-french
+    ```
+- change directory to just created repository, e.g.:
+    ```bash
+    cd fr-french
+    ```
+- check out to the date of first translation commit and overwrite develop branch:
+    ```bash
+    git checkout -B develop $(git rev-list -n1 --before=2022-02-04 develop)
+    ```
+- remove everything but `docs/` directory
+- commit your changes:
+    ```bash
+    git add .
+    git commit -am "prepare translation repository"
+    ```
+- clone old translation repository, add `-old` suffix, e.g.
+    ```bash
+    cd ..
+    git clone git@github.com:solidity-docs/fr-french.git fr-french-old
+    ```
+- if a translation repository has the wrong structure (documentation in the root directory instead of inside `docs/`),
+    temporarily move all the files to the root directory and commit the change:
+    ```bash
+    mv docs/* .
+    git add .
+    git commit -am "temporarily moving documentation outside docs/ dir"
+    ```
+- go to translation repository and add a remote - old translation:
+    ```bash
+    git remote add french-old ../fr-french-old/
+    ```
+- fetch:
+    ```bash
+    git fetch french-old
+    ```
+- go to old translation repository and pick first and last translation commits,
+    e.g for [french](https://github.com/solidity-docs/fr-french/) first commit is `42b7772a145aab0cdbf4fbc300051cbba6d721df` and last `2419c07e094306460d439da8c4db9ec15363b10c`
+- create a range: `first_sha..last_sha`
+- cherry pick commits using range:
+    ```bash
+    git cherry-pick --strategy=recursive -X theirs 42b7772a145aab0cdbf4fbc300051cbba6d721df..2419c07e094306460d439da8c4db9ec15363b10c
+    ```
+- for merge commit, you need to skip commit:
+    ```bash
+    git cherry-pick --skip
+    ```
+- if necessary, move back everything to the `docs` directory and create a commit
+- create new GitHub repository
+- edit `.git/config` and change origin URL, e.g.:
+    ```
+    [remote "origin"]
+        url = git@github.com:solidity-docs-test/fr-french.git
+    ```
+- create branch `main`:
+    ```bash
+    git checkout -b main
+    ```
+- push branch `main`:
+    ```bash
+    git push origin main`=
+    ```
