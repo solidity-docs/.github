@@ -55,6 +55,7 @@ jobs:
           rm -rf .github-workflow
 
       - name: Create Pull Request
+        if: ${{ steps.prepare-pr.outputs.branch_exists == 'false' }}
         uses: peter-evans/create-pull-request@v3
         with:
           token: "${{ secrets.PAT }}"
