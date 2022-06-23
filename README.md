@@ -79,7 +79,14 @@ Remove all files except the `docs/` folder
 cd <language-code>
 rm -vr !("docs")
 ```
- 
+
+Remove all hidden files except `.git/`
+```
+mv .git git
+rm -r ./.*
+mv git .git
+```
+
 Add a README
 ```
 echo "# <title>" >> README.md
