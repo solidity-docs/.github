@@ -18,7 +18,7 @@ As maintainers of one of the Solidity doc translations we ask you to please:
 Please do not change the names of the files and also keep the names of all tags and references. 
 
 There are some special Sphynx markup syntax to look for such as:
-- [References](https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#cross-referencing-arbitrary-locations): `.. _translations:` and :ref:_translations
+- [References](https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#cross-referencing-arbitrary-locations): `.. _translations:` and `:ref:_translations`
 - [Paragraph Level Markup](https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#paragraph-level-markup): `.. note::` , `.. warning::`
 
 #### Glossary
