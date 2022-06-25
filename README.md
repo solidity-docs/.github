@@ -51,11 +51,11 @@ git clone https://github.com/ethereum/solidity.git
 cd solidity
 ```
 
-pull the tags and checkout the latest version tag as a branch e.g. for v0.8.15:
+Remove all the tags. Only the tags with complete translation should exist in the language repo.
 ```
-git fetch --all --tags --prune
-git checkout tags/v0.8.15 -b v0.8.15 
+git tag | xargs git tag -d
 ```
+
 Mirror push the temporary local repository to the new repository
 ```
 git push --mirror git@github.com:solidity-docs/<language-code>.git
