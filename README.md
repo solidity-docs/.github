@@ -41,11 +41,64 @@ For example:
 }
 ```
 
-Once the PR is accepted you will receive an invitation to join the solidity-docs GitHub organization.
+Once the PR is accepted we will create an empty repository with the [language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) followed by the English name of the language, e.g. for a German translation the repository would be called: ``de-german``. You will then be added as a maintainer to this repository. 
 
-As a next step, create a new repository in this organization. The name of the repository should consist of the [language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) followed by the English name of the language, e.g. for a German translation the repository would be called: ``de-german``. 
+As a next step, clone the Solidity repository locally:
+```
+git clone https://github.com/ethereum/solidity.git
+```
+```
+cd solidity
+```
 
-Then, go to the current Solidity repository and copy the [docs](https://github.com/ethereum/solidity/tree/develop/docs) folder content into your language repository.
+Remove all the tags. Only the tags with complete translation should exist in the language repo.
+```
+git tag | xargs git tag -d
+```
+
+Mirror push the temporary local repository to the new repository
+```
+git push --mirror git@github.com:solidity-docs/<language-code>.git
+```
+
+Check if the repository is populated at https://github.com/solidity-docs/<language-code>
+
+Remove the temporary local repository:
+```
+cd ..
+rm -rf solidity
+```
+ 
+Clone the new repository
+```
+git clone git@github.com:solidity-docs/<language-code>.git
+```
+ 
+Remove all files except the `docs/` folder
+```
+cd <language-code>
+rm -vr !("docs")
+```
+
+Remove all hidden files except `.git/`
+```
+mv .git git
+rm -r ./.*
+mv git .git
+```
+
+Add a README
+```
+echo "# <title>" >> README.md
+```
+ 
+Push changes
+```
+git add .
+git commit -m "<commit message>"
+git push
+```
+ 
 
 That's it, now you can start translating! Make sure to create an issue with the [translations progress checklist](https://github.com/solidity-docs/translation-guide/blob/main/progress-checklist.md) in your repo to track the progress and please follow the recommendations outlined in the [maintainer guide](https://github.com/solidity-docs/translation-guide/blob/main/maintainer-guide.md).
 

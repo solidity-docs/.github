@@ -15,7 +15,11 @@ As maintainers of one of the Solidity doc translations we ask you to please:
 ### Tips
 
 #### File, Tags and Reference Names
-Please do not change the names of the files and also keep the names of all tags and references.
+Please do not change the names of the files and also keep the names of all tags and references. 
+
+There are some special [Sphinx](https://docs.readthedocs.io/en/stable/intro/getting-started-with-sphinx.html) markup syntax to look for such as:
+- [References](https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#cross-referencing-arbitrary-locations): `.. _translations:` and `:ref:_translations`
+- [Paragraph Level Markup](https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#paragraph-level-markup): `.. note::` , `.. warning::`
 
 #### Glossary
 Consider making a glossary of the translations of technical and Solidity-specific terms. Put this in a highly visible location (the README or a pinned issue).
