@@ -32,72 +32,79 @@ In either case, pull request workflow file has to be updated:
 - add language code to `jobs.createPullRequest.strategy.matrix.repos`
 
 ### How to transform translation repository to compatible form
-- check for the date of first translation commit, e.g. [french](https://github.com/solidity-docs/fr-french/), first commit is 2022-02-04
-- clone solidity repository
+Originally many or our translation repositories were created by simply copying a snapshot of
+the documentation from the Solidity repository rather than by cloning it with full history.
+To make them compatible with the bot, the history needs to be restored.
+The following instruction shows how to do it, taking the [French translation](https://github.com/solidity-docs/fr-french/) as an example.
+
+1. Clone the translation repository:
     ```bash
-    git clone git@github.com:ethereum/solidity.git
+    git clone git@github.com:solidity-docs/fr-french.git
+    cd fr-french/
     ```
-- rename solidity repository as translation repository, e.g.
+2. Create the `develop` branch.
+    This will now be the main branch of the translation repository.
     ```bash
-    mv solidity fr-french
+    git checkout -b develop
     ```
-- change directory to just created repository, e.g.:
+    If there is already a branch under that name, rename it to something else.
+2. Add the Solidity repository as a git remote and pull its `develop` branch with the whole history:
     ```bash
-    cd fr-french
+    git remote add english git@github.com:ethereum/solidity.git
+    git fetch english develop
     ```
-- check out to the date of first translation commit and overwrite develop branch:
+3. Note down the date of the commit that added the documentation snapshot to the repository.
+    This will usually be one of the very first commits in it.
+    For French this is the second commit ([`42b7772a`](https://github.com/solidity-docs/fr-french/commit/42b7772a145aab0cdbf4fbc300051cbba6d721df)),
+    created on 2022-02-04.
+4. Check out the state of the `develop` branch in the Solidity repository on that date.
     ```bash
-    git checkout -B develop $(git rev-list -n1 --before=2022-02-04 develop)
+    git checkout -B clean-state-with-history $(git rev-list -n1 --before=2022-02-04 english/develop)
     ```
-- remove everything but `docs/` directory
-- commit your changes:
+5. Remove everything except for the documentation:
     ```bash
-    git add .
-    git commit -am "prepare translation repository"
+    find . -mindepth 1 -maxdepth 1 ! \( -name "docs" -o -name ".git" \) -exec git rm -r {} \;
+    git commit -m "Prepare the repository for translation"
     ```
-- clone old translation repository, add `-old` suffix, e.g.
+6. If the structure of the translation repository does not exactly match the Solidity repository
+    (e.g. it has documentation in the root directory instead of inside `docs/`),
+    the files in the main repo need to be moved around to match the translation repository:
     ```bash
-    cd ..
-    git clone git@github.com:solidity-docs/fr-french.git fr-french-old
+    git mv docs/* .
+    git commit -m "Temporarily moving documentation out of docs/"
     ```
-- if a translation repository has the wrong structure (documentation in the root directory instead of inside `docs/`),
-    temporarily move all the files to the root directory and commit the change:
+    This is necessary to ensure a correct rebase in the next step.
+    - **NOTE**: What matters here is the structure in the initial commit that added the snapshot.
+      This needs to be done even if the files were moved to `docs/` in a later commit.
+7. Rebase the main branch of the translation repository on `clean-state-with-history`.
+    In this case the branch is called `main` but it could be different in different translation repositories.
     ```bash
-    mv docs/* .
-    git add .
-    git commit -am "temporarily moving documentation outside docs/ dir"
+    git checkout develop
+    git rebase clean-state-with-history --rebase-merges=rebase-cousins --strategy-option theirs
     ```
-- go to translation repository and add a remote - old translation:
+8. If you added the temporary commit to adjust repository structure, now it can be removed using interactive rebase:
     ```bash
-    git remote add french-old ../fr-french-old/
+    git rebase clean-state-with-history^ --rebase-merges=rebase-cousins --interactive
     ```
-- fetch:
+    The command will open a text editor, showing all the commits from the translation repository, with the temporary commit somewhere near the top:
+    ```
+    pick 9d238c692 Temporarily moving documentation out of docs/
+    ```
+    You need to either remove this line or replace `pick` with `drop`:
+    ```
+    drop 9d238c692 Temporarily moving documentation out of docs/
+    ```
+    Then save the file and exit the editor, which will execute the operation.
+9. Compare the content of the original main branch of the translation repository with the result of the conversion present now on `develop`.
+    The diff command should show no differences other than possibly renamed due to steps 6 and 8 and files that were not copied over as a part of the original snapshot.
     ```bash
-    git fetch french-old
+    git diff origin/main develop
     ```
-- go to old translation repository and pick first and last translation commits,
-    e.g for [french](https://github.com/solidity-docs/fr-french/) first commit is `42b7772a145aab0cdbf4fbc300051cbba6d721df` and last `2419c07e094306460d439da8c4db9ec15363b10c`
-- create a range: `first_sha..last_sha`
-- cherry pick commits using range:
-    ```bash
-    git cherry-pick --strategy=recursive -X theirs 42b7772a145aab0cdbf4fbc300051cbba6d721df..2419c07e094306460d439da8c4db9ec15363b10c
-    ```
-- for merge commit, you need to skip commit:
-    ```bash
-    git cherry-pick --skip
-    ```
-- if necessary, move back everything to the `docs` directory and create a commit
-- create new GitHub repository
-- edit `.git/config` and change origin URL, e.g.:
-    ```
-    [remote "origin"]
-        url = git@github.com:solidity-docs-test/fr-french.git
-    ```
-- create branch `main`:
-    ```bash
-    git checkout -b main
-    ```
-- push branch `main`:
-    ```bash
-    git push origin main`=
-    ```
+    It's also a good idea to visually inspect the commit tree in a tool that can show the full graph with all branches (e.g. gitk).
+10. You can now push the `develop` branch to the translation repository:
+   ```bash
+   git push origin develop
+
+Note that this only converts the main branch of the repository.
+All the other branches and tags remain in the old positions but optionally they can also be converted
+by simply redoing steps 6-10, substituting the branch/tag in question for `develop`.
