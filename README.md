@@ -2,7 +2,7 @@
 
 Hello and welcome to the [Solidity documentation](http://docs.soliditylang.org/) translations GitHub organization! Great to have you here. 😊
 
-In this org, we coordinate all community-driven translation efforts. 
+In this org, we coordinate all community-driven translation efforts.
 
 Please note that the Solidity team can give no guarantees on the quality and accuracy of the translations provided. The translations are meant to lower the entry barriers for non-English speaking developers and hence will allow a broader set of developers from all over the world to get to know Solidity. However, the English reference version is and will remain the only officially supported version by the Solidity team and will always be the most accurate and most up-to-date one. When in doubt, always refer to the English (original) documentation.
 
@@ -13,7 +13,7 @@ Before we get started, please make sure to read this guide carefully.
 By uniting all translation efforts in this repository we aim to…
 - Get a broader set of eyes and contributors involved in the translation process.
 - Establish quality standards and best practices.
-- Help each other and better leverage synergies across the different language translation teams. 
+- Help each other and better leverage synergies across the different language translation teams.
 
 ### Translation Process
 
@@ -41,7 +41,7 @@ For example:
 }
 ```
 
-Once the PR is accepted we will create an empty repository with the [language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) followed by the English name of the language, e.g. for a German translation the repository would be called: ``de-german``. You will then be added as a maintainer to this repository. 
+Once the PR is accepted we will create an empty repository with the [language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) followed by the English name of the language, e.g. for a German translation the repository would be called: ``de-german``. You will then be added as a maintainer to this repository.
 
 As a next step, clone the Solidity repository locally:
 ```
@@ -68,12 +68,12 @@ Remove the temporary local repository:
 cd ..
 rm -rf solidity
 ```
- 
+
 Clone the new repository
 ```
 git clone git@github.com:solidity-docs/<language-code>.git
 ```
- 
+
 Remove all files except the `docs/` folder
 ```
 cd <language-code>
@@ -91,14 +91,14 @@ Add a README
 ```
 echo "# <title>" >> README.md
 ```
- 
+
 Push changes
 ```
 git add .
 git commit -m "<commit message>"
 git push
 ```
- 
+
 
 That's it, now you can start translating! Make sure to create an issue with the [translations progress checklist](https://github.com/solidity-docs/translation-guide/blob/main/progress-checklist.md) in your repo to track the progress and please follow the recommendations outlined in the [maintainer guide](https://github.com/solidity-docs/translation-guide/blob/main/maintainer-guide.md).
 
