@@ -50,6 +50,11 @@ jobs:
           .github-workflow/scripts/generate-pr-body.sh
           .github-workflow/scripts/set-assignees.sh "${{ matrix.repos }}"
 
+      - name: Commit pull request content
+        run: |
+          # Needs to be in a separate step to access env.pr_title.
+          git commit -m "${{ env.pr_title }}"
+
       - name: Remove this repository
         run: |
           rm -rf .github-workflow

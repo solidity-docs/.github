@@ -29,14 +29,25 @@ fi
 
 echo "::set-output name=branch_exists::$branch_exists"
 
-# pull from ethereum/solidity develop
-git pull english develop --rebase=false --squash || true
+# Try to pull changes from the main repository. Anything changed at the same time in the translation
+# and in the main repo will result in a conflict and will make the command fail. This is fine.
+# We want include the conflict markers as a part of the merge commit so that they're easy to spot in the PR.
+# The command will also fail if in the main repo there were modifications to files outside
+# of docs/ (these files are deleted in translation repos). These are the conflicts we want to ignore.
+git pull english develop --rebase=false || true
 
-# unstage everything
-git rm -r --cached .
+# Unstage everything without aborting the merge.
+# This also "resolves" conflicts by keeping conflicted files as is including the conflict markers.
+git reset .
 
-# stage only selected files / directories
-git add docs/*
+# The only changes from the main repo that we're interested in are thos in docs/. Stage them.
+git add docs/
 
-# remove untracked files
-git clean -d --force --exclude=.gitignore --exclude=README.md
+# Reset any files seen by git as modified/deleted to the state from before the merge.
+# We need this for files outside of docs/ that happen to match the path of some file that exists
+# in the main repo, for example README.md or .gitignore. We do not copy these when setting up a
+# translation repo but to git they look like files from the main repo that need to be synced.
+git ls-files --modified --deleted | xargs git checkout --
+
+# All the other files from the original merge commit are now untracked. We don't want them in the PR.
+git clean -d --force
