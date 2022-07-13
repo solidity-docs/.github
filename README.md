@@ -106,7 +106,8 @@ Once your translations is advanced and you have checked the first part of the [t
 
 ### Automation
 
-Optimally, we would like to have a bot similar to the [reactjs-translation-bot](https://github.com/reactjs-translation-bot), which would create PRs with new content that needs to be translated everytime the original documentation is updated. Please [reach out](https://forum.soliditylang.org/t/new-translation-workflow-for-solidity-documentation/34) to us if you can help us setting this up! See more in [this issue](https://github.com/solidity-docs/translation-guide/issues/8).
+To help translators keep up with changes in the official documentation, which gets constantly expanded and updated, we run a translation bot.
+The bot regularly checks the main Solidity repository for changes and notifies translators by creating pull requests that indicate which parts require new translation.
 
 ### Acknowledgements
 

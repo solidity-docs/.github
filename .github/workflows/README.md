@@ -1,5 +1,8 @@
 ## Solidity Translation Bot
 
+The bot is based on [reactjs-translation-bot](https://github.com/reactjs-translation-bot).
+Its purpose is to create PRs with new content that needs to be translated every time the original documentation is updated.
+
 ### Setting up the Bot
 - Create a new GitHub account and set up [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
 - Go to repository Settings -> Security -> Secrets -> Actions -> Repository secrets
