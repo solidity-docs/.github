@@ -25,7 +25,17 @@ jobs:
       matrix:
         # This means, that all pull requests will be processed simultaneously
         # and independently of each other.
-        repos: ["placeholder"]
+        repos:
+          - de-german
+          - es-spanish
+          #-fa-persian
+          #-fr-french
+          #-ja-japanese
+          #-ko-korean
+          #-pt-portuguese
+          #-ru-russian
+          #-tr-turkish     # Disabled until translation of 0.8.15 is finished
+          #-zh-chinese
     steps:
       - name: Fetch translation repository
         uses: actions/checkout@v2
