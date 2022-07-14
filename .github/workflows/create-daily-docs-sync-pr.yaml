@@ -31,11 +31,11 @@ jobs:
           #-fa-persian
           #-fr-french
           #-ja-japanese
-          #-ko-korean
+          - ko-korean
           #-pt-portuguese
           #-ru-russian
           #-tr-turkish     # Disabled until translation of 0.8.15 is finished
-          #-zh-chinese
+          - zh-chinese
     steps:
       - name: Fetch translation repository
         uses: actions/checkout@v2
