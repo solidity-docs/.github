@@ -30,10 +30,10 @@ jobs:
           - es-spanish
           #-fa-persian
           #-fr-french
-          #-ja-japanese
+          - ja-japanese
           - ko-korean
           #-pt-portuguese
-          #-ru-russian
+          - ru-russian
           #-tr-turkish     # Disabled until translation of 0.8.15 is finished
           - zh-chinese
     steps:
