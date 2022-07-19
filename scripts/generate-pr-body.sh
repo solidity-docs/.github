@@ -1,16 +1,28 @@
 #!/bin/bash
 set -euo pipefail
 
+function modified_file_list {
+    git status --short |
+        grep "docs" |
+        awk '{print "- [ ] ["$2"](https://github.com/ethereum/solidity/tree/develop/"$2")"}'
+}
+
+function today_utc {
+    date --utc +%Y-%m-%d
+}
+
+function sync_commit_human_readable_id {
+    git describe --tags --always english/develop
+}
+
 function title {
-    echo "Sync with ethereum/solidity@$(git describe --tags --always english/develop) $(date -u +%Y-%m-%d)"
+    echo "Sync with ethereum/solidity@$(sync_commit_human_readable_id) $(today_utc)"
 }
 
 function pr_body {
     echo "This PR was automatically generated."
     echo
-    git status --short |
-        grep "docs" |
-        awk '{print "- [ ] ["$2"](https://github.com/ethereum/solidity/tree/develop/"$2")"}'
+    modified_file_list
     echo
     echo "Merge changes from [solidity](https://github.com/ethereum/solidity)@develop"
     echo "Please fix the conflicts by pushing new commits to this pull request, either by editing the files directly on GitHub or by checking out this branch."
