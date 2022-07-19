@@ -29,10 +29,10 @@ jobs:
           - de-german
           - es-spanish
           #-fa-persian
-          #-fr-french
+          - fr-french
           - ja-japanese
           - ko-korean
-          #-pt-portuguese
+          - pt-portuguese
           - ru-russian
           #-tr-turkish     # Disabled until translation of 0.8.15 is finished
           - zh-chinese
