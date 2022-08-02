@@ -1,5 +1,8 @@
 {
     "name": "French",
     "code": "fr",
-    "maintainers": ["stratus-dev-fr", "Ilingu"]
+    "maintainers": [
+        "stratus-dev-fr",
+        "Ilingu"
+    ]
 }

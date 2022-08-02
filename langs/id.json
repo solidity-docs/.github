@@ -1,5 +1,8 @@
 {
- "name": "Indonesian",
- "code": "id",
- "maintainers": ["ululamri", "trocok"]
+    "name": "Indonesian",
+    "code": "id",
+    "maintainers": [
+        "ululamri",
+        "trocok"
+    ]
 }

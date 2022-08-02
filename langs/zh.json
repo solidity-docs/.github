@@ -1,5 +1,7 @@
 {
     "name": "Chinese",
     "code": "zh",
-    "maintainers": ["jiangwenchaochao"]
+    "maintainers": [
+        "jiangwenchaochao"
+    ]
 }

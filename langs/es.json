@@ -1,5 +1,9 @@
 {
- "name": "Spanish",
- "code": "es",
- "maintainers": ["DanielMart-tech", "elijahhampton", "mektigboy"]
+    "name": "Spanish",
+    "code": "es",
+    "maintainers": [
+        "DanielMart-tech",
+        "elijahhampton",
+        "mektigboy"
+    ]
 }
