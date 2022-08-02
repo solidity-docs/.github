@@ -1,5 +1,8 @@
 {
     "name": "Turkish",
     "code": "tr",
-    "maintainers": ["AliErcanOzgokce", "kuzdogan"]
+    "maintainers": [
+        "AliErcanOzgokce",
+        "kuzdogan"
+    ]
 }

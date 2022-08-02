@@ -1,5 +1,8 @@
 {
     "name": "Russian",
     "code": "ru",
-    "maintainers": ["olganicegirl", "VSGic"]
-   }
+    "maintainers": [
+        "olganicegirl",
+        "VSGic"
+    ]
+}

@@ -33,11 +33,14 @@ Once you have your team of min. 2 contributors, create a PR to the langs folder 
 
 For example:
 
-```
+```json
 {
- "name": "German",
- "code": "de",
- "maintainers": ["franzihei", "chriseth"]
+    "name": "German",
+    "code": "de",
+    "maintainers": [
+        "franzihei",
+        "chriseth"
+    ]
 }
 ```
 
