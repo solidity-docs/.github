@@ -55,7 +55,7 @@ function print_option {
 # NOTE: If you change defaults here, remember to update the README
 bot_disabled=$(load_option disabled false)
 randomly_assign_maintainers=$(load_option randomly_assign_maintainers false)
-pr_labels=$(load_option pr_labels '["sync", "automated-pr"]')
+pr_labels=$(load_option pr_labels '["sync-pr"]')
 
 validate_boolean disabled "$bot_disabled"
 validate_boolean randomly_assign_maintainers "$randomly_assign_maintainers"

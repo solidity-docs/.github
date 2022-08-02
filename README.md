@@ -116,10 +116,9 @@ If the file is not present, the bot uses the following default configuration:
 ```json
 {
     "disabled": false,
-    "randomly_assign_maintainers": true,
+    "randomly_assign_maintainers": false,
     "pr_labels": [
-        "sync",
-        "automated-pr"
+        "sync-pr"
     ]
 }
 ```
