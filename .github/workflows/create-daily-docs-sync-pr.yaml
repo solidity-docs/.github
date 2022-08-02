@@ -10,8 +10,6 @@ env:
   BOT_USERNAME: soldocsbot
   BOT_EMAIL: solidity-docs-translations@ethereum.org
   GITHUB_REPOSITORY_OWNER: solidity-docs
-  # comma separated list of labels
-  LABELS: sync,automated-pr
 
 jobs:
   createPullRequest:
@@ -53,24 +51,35 @@ jobs:
           repository: ${{ github.repository }}
           path: .github-workflow
 
+      - name: Load bot configuration from translation-bot.json in the translation repository
+        id: bot-config
+        run: |
+          .github-workflow/scripts/load-translation-bot-config.sh translation-bot.json
+
       - name: Prepare pull request content
         id: prepare-pr
+        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
         run: |
           .github-workflow/scripts/merge-conflicts.sh "$BOT_USERNAME" "$BOT_EMAIL"
           .github-workflow/scripts/generate-pr-body.sh
-          .github-workflow/scripts/set-assignees.sh "${{ matrix.repos }}"
+
+          if [[ ${{ steps.bot-config.outputs.randomly_assign_maintainers }} == true ]]; then
+            .github-workflow/scripts/set-assignees.sh "${{ matrix.repos }}"
+          fi
 
       - name: Commit pull request content
+        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
         run: |
           # Needs to be in a separate step to access env.pr_title.
           git commit -m "${{ env.pr_title }}"
 
       - name: Remove this repository
+        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
         run: |
           rm -rf .github-workflow
 
       - name: Create Pull Request
-        if: ${{ steps.prepare-pr.outputs.branch_exists == 'false' }}
+        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' && steps.prepare-pr.outputs.branch_exists == 'false' }}
         uses: peter-evans/create-pull-request@v3
         with:
           token: "${{ secrets.PAT }}"
@@ -80,6 +89,6 @@ jobs:
           branch: "${{ steps.prepare-pr.outputs.branch_name }}"
           title: "${{ env.pr_title }}"
           body: "${{ env.pr_body }}"
-          labels: "${{ env.LABELS }}"
+          labels: "${{ join(fromJSON(steps.bot-config.outputs.pr_labels)) }}"
           assignees: ${{ env.assignee }}
           reviewers: ${{ env.reviewer }}
