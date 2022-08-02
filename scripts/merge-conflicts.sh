@@ -47,7 +47,11 @@ git add docs/
 # We need this for files outside of docs/ that happen to match the path of some file that exists
 # in the main repo, for example README.md or .gitignore. We do not copy these when setting up a
 # translation repo but to git they look like files from the main repo that need to be synced.
-git ls-files --modified --deleted | xargs git checkout --
+files_to_reset=$(git ls-files --modified --deleted)
+if [[ $files_to_reset != "" ]]; then
+    # NOTE: If the file list passed to `git checkout` is empty, git aborts the merge. We don't want that.
+    git ls-files --modified --deleted | xargs git checkout --
+fi
 
 # All the other files from the original merge commit are now untracked. We don't want them in the PR.
 git clean -d --force
