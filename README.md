@@ -112,6 +112,31 @@ Once your translations is advanced and you have checked the first part of the [t
 To help translators keep up with changes in the official documentation, which gets constantly expanded and updated, we run a translation bot.
 The bot regularly checks the main Solidity repository for changes and notifies translators by creating pull requests that indicate which parts require new translation.
 
+#### Bot Configuration
+Some aspects of the bot can be controlled via a file called `translation-bot.json` that can be placed in the root directory of a translation repository.
+If the file is not present, the bot uses the following default configuration:
+
+```json
+{
+    "disabled": false,
+    "randomly_assign_maintainers": false,
+    "pr_labels": [
+        "sync-pr"
+    ]
+}
+```
+- `disabled` can be set to `true` to tell the bot that the maintainers of the repository do not want to receive sync PRs.
+    This is useful for example when the translators are targetting an older version of the documentation and would close these PRs anyway.
+- `randomly_assign_maintainers` makes the bot automatically assign maintainers and add reviewers to the PR.
+    Users are randomly chosen from the `maintainers` array in [the JSON file corresponding to their repository](https://github.com/solidity-docs/translation-guide/tree/main/langs).
+- `pr_labels` is a list of labels applied by the bot to sync PRs.
+    These are useful as a way to easily select all sync PRs on Github's PR list.
+
+When editing configuration please make sure it has no JSON syntax errors.
+Errors in the configuration file will prevent the bot from submitting PRs in your repository.
+In case of problems please check if there are any failures on [the list of bot runs](https://github.com/solidity-docs/translation-guide/actions/workflows/create-daily-docs-sync-pr.yaml).
+You can always ask for help in the [Solidity Docs Community Translations](https://app.element.io/#/room/#solidity-docs-translations:matrix.org) room on Matrix or, if you think it's a bug, please [report an issue](https://github.com/solidity-docs/translation-guide/issues).
+
 ### Acknowledgements
 
 Big kudos go out to the [ReactJS translations team repository](https://github.com/reactjs/reactjs.org-translation) and the [ethereum.org translation team](https://ethereum.org/en/contributing/translation-program/), which both inspired us with their resources and advised on setting up this process.
