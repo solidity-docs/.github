@@ -77,29 +77,22 @@ Clone the new repository
 git clone git@github.com:solidity-docs/<language-code>.git
 ```
 
-Remove all files except the `docs/` folder
+Remove files irrelevant to the translation
 ```
 cd <language-code>
-rm -vr !("docs")
-```
-
-Remove all hidden files except `.git/`
-```
-mv .git git
-rm -r ./.*
-mv git .git
+find . -mindepth 1 -maxdepth 1 ! \( -name "docs" -o -name "CMakeLists.txt" -o -name ".git" \) -exec git rm -r {} \;
 ```
 
 Add a README
 ```
 echo "# <title>" >> README.md
+git add README.md
+git commit -m "Prepare the repository for translation"
 ```
 
 Push changes
 ```
-git add .
-git commit -m "<commit message>"
-git push
+git push origin
 ```
 
 
