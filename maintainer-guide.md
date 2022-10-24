@@ -5,7 +5,7 @@ This document lists the responsibilities and resources available to maintainers 
 ### Maintainer Responsibilities
 
 As maintainers of one of the Solidity doc translations we ask you to please:
-- Track the process of the translation in the [translation progress checklist](https://github.com/solidity-docs/translation-guide/blob/main/progress-checklist.md).
+- Track the process of the translation in the [translation progress checklist](progress-checklist.md).
 - Review PRs made by contributors in a timely manner.
 - Make sure that the translations follow the [translation style guide](https://docs.soliditylang.org/en/latest/contributing.html#documentation-style-guide) outlined in the Solidity docs.
 - Regularly check if the translation is up-to-date.
