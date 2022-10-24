@@ -25,7 +25,7 @@ However, in order to make things easier for the contributors and assure some sor
 
 To start with a new language, adhere to the following process:
 
-Find at least one other contributor to join you in being the maintainer (main contributor and owner) of this language. Being the maintainer of the translation requires you to organize the translation efforts for this respective language, assure quality and accuracy and make sure translations are kept in sync and are on an up-to-date level. You find an overview and tips in the [maintainer guide](https://github.com/solidity-docs/translation-guide/blob/main/maintainer-guide.md).
+Find at least one other contributor to join you in being the maintainer (main contributor and owner) of this language. Being the maintainer of the translation requires you to organize the translation efforts for this respective language, assure quality and accuracy and make sure translations are kept in sync and are on an up-to-date level. You find an overview and tips in the [maintainer guide](maintainer-guide.md).
 
 If you don’t know of any other translators that want to join your language, feel free to create a topic in the [documentation category](https://forum.soliditylang.org/c/documentation/8) of the Solidity forum to find more contributors.
 
@@ -96,9 +96,9 @@ git push origin
 ```
 
 
-That's it, now you can start translating! Make sure to create an issue with the [translations progress checklist](https://github.com/solidity-docs/translation-guide/blob/main/progress-checklist.md) in your repo to track the progress and please follow the recommendations outlined in the [maintainer guide](https://github.com/solidity-docs/translation-guide/blob/main/maintainer-guide.md).
+That's it, now you can start translating! Make sure to create an issue with the [translations progress checklist](progress-checklist.md) in your repo to track the progress and please follow the recommendations outlined in the [maintainer guide](maintainer-guide.md).
 
-Once your translations is advanced and you have checked the first part of the [translations progress checklist](https://github.com/solidity-docs/translation-guide/blob/main/progress-checklist.md), please let us know and we will consider adding your translation to the [language flyout menu](https://docs.readthedocs.io/en/stable/localization.html#project-with-multiple-translations) of the official Solidity documentation!
+Once your translations is advanced and you have checked the first part of the [translations progress checklist](progress-checklist.md), please let us know and we will consider adding your translation to the [language flyout menu](https://docs.readthedocs.io/en/stable/localization.html#project-with-multiple-translations) of the official Solidity documentation!
 
 ### Automation
 
@@ -121,14 +121,14 @@ If the file is not present, the bot uses the following default configuration:
 - `disabled` can be set to `true` to tell the bot that the maintainers of the repository do not want to receive sync PRs.
     This is useful for example when the translators are targetting an older version of the documentation and would close these PRs anyway.
 - `randomly_assign_maintainers` makes the bot automatically assign maintainers and add reviewers to the PR.
-    Users are randomly chosen from the `maintainers` array in [the JSON file corresponding to their repository](https://github.com/solidity-docs/translation-guide/tree/main/langs).
+    Users are randomly chosen from the `maintainers` array in [the JSON file corresponding to their repository](langs/).
 - `pr_labels` is a list of labels applied by the bot to sync PRs.
     These are useful as a way to easily select all sync PRs on Github's PR list.
 
 When editing configuration please make sure it has no JSON syntax errors.
 Errors in the configuration file will prevent the bot from submitting PRs in your repository.
-In case of problems please check if there are any failures on [the list of bot runs](https://github.com/solidity-docs/translation-guide/actions/workflows/create-daily-docs-sync-pr.yaml).
-You can always ask for help in the [Solidity Docs Community Translations](https://app.element.io/#/room/#solidity-docs-translations:matrix.org) room on Matrix or, if you think it's a bug, please [report an issue](https://github.com/solidity-docs/translation-guide/issues).
+In case of problems please check if there are any failures on [the list of bot runs](https://github.com/solidity-docs/.github/actions/workflows/create-daily-docs-sync-pr.yaml).
+You can always ask for help in the [Solidity Docs Community Translations](https://app.element.io/#/room/#solidity-docs-translations:matrix.org) room on Matrix or, if you think it's a bug, please [report an issue](https://github.com/solidity-docs/.github/issues).
 
 ### Acknowledgements
 
