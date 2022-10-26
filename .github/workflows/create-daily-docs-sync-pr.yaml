@@ -26,13 +26,13 @@ jobs:
         repos:
           - de-german
           - es-spanish
-          #-fa-persian
+          - fa-persian
           - fr-french
           - ja-japanese
           - ko-korean
           - pt-portuguese
           - ru-russian
-          #-tr-turkish     # Disabled until translation of 0.8.15 is finished
+          - tr-turkish
           - zh-chinese
     steps:
       - name: Fetch translation repository
