@@ -60,7 +60,7 @@ jobs:
         id: prepare-pr
         if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
         run: |
-          .github-workflow/scripts/merge-conflicts.sh "$BOT_USERNAME" "$BOT_EMAIL"
+          .github-workflow/scripts/pull-and-resolve-english-changes.sh "$BOT_USERNAME" "$BOT_EMAIL"
           .github-workflow/scripts/generate-pr-body.sh
 
           if [[ ${{ steps.bot-config.outputs.randomly_assign_maintainers }} == true ]]; then
