@@ -101,7 +101,7 @@ jobs:
 
           # NOTE: The script will end up not creating a merge commit if there are no new upstream changes.
           # In that case we expect that the PR action will simply not create a PR.
-          ../bot/scripts/pull-and-resolve-english-changes.sh develop "$pr_title"
+          ../bot/scripts/pull-and-resolve-english-changes.sh english/develop "$pr_title"
 
           if [[ ${{ steps.bot-config.outputs.randomly_assign_maintainers }} == 'true' ]]; then
             ../bot/scripts/set-assignees.sh "${{ matrix.repos }}"
