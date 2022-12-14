@@ -1,17 +1,17 @@
 #!/bin/bash
 set -euo pipefail
 
-USERNAME="$1"
-EMAIL="$2"
+function fail { >&2 echo -e "ERROR: $1"; exit 1; }
 
-original_url="https://github.com/ethereum/solidity.git"
-git remote add english "$original_url"
+(( $# == 1 )) || fail "Wrong number of arguments\nUsage: $0 <solidity repo commit/branch/tag>"
+git config remote.english.url || fail "Remote 'english' is not defined"
+SOLIDITY_REF="$1"
 
-git config user.name "$USERNAME"
-git config user.email "$EMAIL"
+# ASSUMPTIONS:
+# - We're in the root directory of a working copy of the translation repository.
+# - Remote 'english' exists and points at the main Solidity repository.
+# - Working copy is clean, with no modified or untracked files.
 
-## Fetch from translated origin
-git fetch english --quiet
 sync_branch="sync-$(git describe --tags --always english/develop)"
 
 # pass the hash and the branch name to action "create PR"
@@ -34,7 +34,7 @@ echo "branch_exists=$branch_exists" >> "$GITHUB_OUTPUT"
 # We want include the conflict markers as a part of the merge commit so that they're easy to spot in the PR.
 # The command will also fail if in the main repo there were modifications to files outside
 # of docs/ (these files are deleted in translation repos). These are the conflicts we want to ignore.
-git pull english develop --rebase=false || true
+git pull english "$SOLIDITY_REF" --rebase=false || true
 
 # Unstage everything without aborting the merge.
 # This also "resolves" conflicts by keeping conflicted files as is including the conflict markers.

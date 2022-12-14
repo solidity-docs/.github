@@ -44,6 +44,13 @@ jobs:
           # cause "unrelated histories" error. "0" means unlimited fetch-depth.
           fetch-depth: 0
 
+      - name: Configure translation repository
+        run: |
+          git config user.name "$BOT_USERNAME"
+          git config user.email "$BOT_EMAIL"
+          git remote add english "https://github.com/ethereum/solidity.git"
+          git fetch english --tags --quiet
+
       - name: Fetch bot's repository
         uses: actions/checkout@v2
         with:
@@ -60,7 +67,7 @@ jobs:
         id: prepare-pr
         if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
         run: |
-          .github-workflow/scripts/pull-and-resolve-english-changes.sh "$BOT_USERNAME" "$BOT_EMAIL"
+          .github-workflow/scripts/pull-and-resolve-english-changes.sh develop
           .github-workflow/scripts/generate-pr-body.sh
 
           if [[ ${{ steps.bot-config.outputs.randomly_assign_maintainers }} == true ]]; then
