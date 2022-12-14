@@ -13,23 +13,6 @@ COMMIT_MESSAGE="$2"
 # - Remote 'english' exists and points at the main Solidity repository.
 # - Working copy is clean, with no modified or untracked files.
 
-sync_branch="sync-$(git describe --tags --always "english/${SOLIDITY_REF}")"
-
-# pass the hash and the branch name to action "create PR"
-echo "branch_name=$sync_branch" >> "$GITHUB_OUTPUT"
-
-# check if sync branch exists
-if git ls-remote --exit-code --heads origin "$sync_branch"
-then
-    branch_exists=true
-    echo "sync_branch $sync_branch exists"
-else
-    branch_exists=false
-    echo "sync_branch $sync_branch does not exist"
-fi
-
-echo "branch_exists=$branch_exists" >> "$GITHUB_OUTPUT"
-
 # Try to merge changes from the main repository. Anything changed at the same time in the translation
 # and in the main repo will result in a conflict and will make the command fail. This is fine.
 # We want to include the conflict markers as a part of the merge commit so that they're easy to spot in the PR.

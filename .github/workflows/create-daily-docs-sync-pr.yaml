@@ -71,9 +71,17 @@ jobs:
           cd solidity/
           ../bot/scripts/generate-pr-body.sh
 
-      - name: Prepare pull request content
-        id: prepare-pr
+      - name: Check if sync branch already exists
+        id: check-sync-branch
         if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
+        run: |
+          cd solidity/
+          sync_branch="sync-$(git describe --tags --always "english/develop")"
+          .github-workflow/scripts/check-remote-branch.sh "$sync_branch"
+          echo "branch_name=$sync_branch" >> "$GITHUB_OUTPUT"
+
+      - name: Prepare pull request content
+        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' && steps.check-sync-branch.outputs.branch_exists == 'false' }}
         run: |
           cd solidity/
 
@@ -86,12 +94,12 @@ jobs:
           fi
 
       - name: Remove this repository
-        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
+        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' && steps.check-sync-branch.outputs.branch_exists == 'false' }}
         run: |
           rm -rf bot/
 
       - name: Create Pull Request
-        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' && steps.prepare-pr.outputs.branch_exists == 'false' }}
+        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' && steps.check-sync-branch.outputs.branch_exists == 'false' }}
         uses: peter-evans/create-pull-request@v3
         with:
           path: solidity/
@@ -99,7 +107,7 @@ jobs:
           commit-message: "${{ env.pr_title }}"
           committer: "${{ env.BOT_USERNAME }} <${{ env.BOT_EMAIL }}>"
           author: "${{ env.BOT_USERNAME }} <${{ env.BOT_EMAIL }}>"
-          branch: "${{ steps.prepare-pr.outputs.branch_name }}"
+          branch: "${{ steps.check-sync-branch.outputs.branch_name }}"
           title: "${{ env.pr_title }}"
           body: "${{ env.pr_body }}"
           labels: "${{ join(fromJSON(steps.bot-config.outputs.pr_labels)) }}"
