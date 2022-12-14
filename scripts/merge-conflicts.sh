@@ -15,7 +15,7 @@ git fetch english --quiet
 sync_branch="sync-$(git describe --tags --always english/develop)"
 
 # pass the hash and the branch name to action "create PR"
-echo "::set-output name=branch_name::$sync_branch"
+echo "branch_name=$sync_branch" >> "$GITHUB_OUTPUT"
 
 # check if sync branch exists
 if git ls-remote --exit-code --heads origin "$sync_branch"
@@ -27,7 +27,7 @@ else
     echo "sync_branch $sync_branch does not exist"
 fi
 
-echo "::set-output name=branch_exists::$branch_exists"
+echo "branch_exists=$branch_exists" >> "$GITHUB_OUTPUT"
 
 # Try to pull changes from the main repository. Anything changed at the same time in the translation
 # and in the main repo will result in a conflict and will make the command fail. This is fine.
