@@ -49,7 +49,7 @@ jobs:
           git config user.name "$BOT_USERNAME"
           git config user.email "$BOT_EMAIL"
           git remote add english "https://github.com/ethereum/solidity.git"
-          git fetch english --tags --quiet
+          git fetch english develop --tags --quiet
 
       - name: Fetch bot's repository
         uses: actions/checkout@v2

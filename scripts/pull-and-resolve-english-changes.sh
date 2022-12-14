@@ -29,12 +29,12 @@ fi
 
 echo "branch_exists=$branch_exists" >> "$GITHUB_OUTPUT"
 
-# Try to pull changes from the main repository. Anything changed at the same time in the translation
+# Try to merge changes from the main repository. Anything changed at the same time in the translation
 # and in the main repo will result in a conflict and will make the command fail. This is fine.
-# We want include the conflict markers as a part of the merge commit so that they're easy to spot in the PR.
+# We want to include the conflict markers as a part of the merge commit so that they're easy to spot in the PR.
 # The command will also fail if in the main repo there were modifications to files outside
 # of docs/ (these files are deleted in translation repos). These are the conflicts we want to ignore.
-git pull english "$SOLIDITY_REF" --rebase=false || true
+git merge "english/${SOLIDITY_REF}" || true
 
 # Unstage everything without aborting the merge.
 # This also "resolves" conflicts by keeping conflicted files as is including the conflict markers.
