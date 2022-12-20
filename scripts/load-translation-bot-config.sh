@@ -12,7 +12,7 @@ function load_option {
         return 0
     fi
 
-    # We want single-line output to be able to easily pass it to ::set-output
+    # We want single-line output to be able to easily pass it to $GITHUB_OUTPUT
     local value
     value=$(jq --compact-output ".${option}" "$CONFIG_FILE")
 
@@ -48,7 +48,7 @@ function print_option {
     local value="$2"
 
     # The second echo is there so that we can actually see the value in the log for debug purposes
-    echo "::set-output name=${option}::${value}"
+    echo "${option}=${value}" >> "$GITHUB_OUTPUT"
     echo "${option}: ${value}"
 }
 
