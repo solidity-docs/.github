@@ -43,51 +43,58 @@ jobs:
           # By default, checkout is fetching only the last commit. This will
           # cause "unrelated histories" error. "0" means unlimited fetch-depth.
           fetch-depth: 0
+          path: solidity/
+
+      - name: Configure translation repository
+        run: |
+          cd solidity/
+          git config user.name "$BOT_USERNAME"
+          git config user.email "$BOT_EMAIL"
+          git remote add english "https://github.com/ethereum/solidity.git"
+          git fetch english develop --tags --quiet
 
       - name: Fetch bot's repository
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.PAT }}
           repository: ${{ github.repository }}
-          path: .github-workflow
+          path: bot/
 
       - name: Load bot configuration from translation-bot.json in the translation repository
         id: bot-config
         run: |
-          .github-workflow/scripts/load-translation-bot-config.sh translation-bot.json
+          bot/scripts/load-translation-bot-config.sh solidity/translation-bot.json
+
+      - name: Prepare pull request title and description
+        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
+        run: |
+          cd solidity/
+          ../bot/scripts/generate-pr-body.sh
 
       - name: Prepare pull request content
         id: prepare-pr
         if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
         run: |
-          .github-workflow/scripts/merge-conflicts.sh "$BOT_USERNAME" "$BOT_EMAIL"
-          .github-workflow/scripts/generate-pr-body.sh
+          cd solidity/
+
+          # NOTE: The script will end up not creating a merge commit if there are no new upstream changes.
+          # In that case we expect that the PR action will simply not create a PR.
+          ../bot/scripts/pull-and-resolve-english-changes.sh develop "$pr_title"
 
           if [[ ${{ steps.bot-config.outputs.randomly_assign_maintainers }} == true ]]; then
-            .github-workflow/scripts/set-assignees.sh "${{ matrix.repos }}"
-          fi
-
-      - name: Commit pull request content
-        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
-        run: |
-          # Needs to be in a separate step to access env.pr_title.
-          if [[ $(git status --porcelain) != "" ]]; then
-            git commit -m "${{ env.pr_title }}"
-          else
-            # If there are no uncommitted changes, merge must have gone without conflicts.
-            # In that case just adjust the commit description.
-            git commit --amend -m "${{ env.pr_title }}"
+            ../bot/scripts/set-assignees.sh "${{ matrix.repos }}"
           fi
 
       - name: Remove this repository
         if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
         run: |
-          rm -rf .github-workflow
+          rm -rf bot/
 
       - name: Create Pull Request
         if: ${{ steps.bot-config.outputs.bot_disabled == 'false' && steps.prepare-pr.outputs.branch_exists == 'false' }}
         uses: peter-evans/create-pull-request@v3
         with:
+          path: solidity/
           token: "${{ secrets.PAT }}"
           commit-message: "${{ env.pr_title }}"
           committer: "${{ env.BOT_USERNAME }} <${{ env.BOT_EMAIL }}>"
