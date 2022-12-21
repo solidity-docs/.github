@@ -13,7 +13,7 @@ COMMIT_MESSAGE="$2"
 # - Remote 'english' exists and points at the main Solidity repository.
 # - Working copy is clean, with no modified or untracked files.
 
-sync_branch="sync-$(git describe --tags --always english/develop)"
+sync_branch="sync-$(git describe --tags --always "english/${SOLIDITY_REF}")"
 
 # pass the hash and the branch name to action "create PR"
 echo "branch_name=$sync_branch" >> "$GITHUB_OUTPUT"
