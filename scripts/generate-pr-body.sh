@@ -2,7 +2,7 @@
 set -euo pipefail
 
 function modified_file_list {
-    commit_hash=$(git rev-parse --verify english/develop)
+    commit_hash=$(git rev-parse --verify develop)
     git status --short |
         grep "docs" |
         awk '{print "- [ ] ["$2"](https://github.com/ethereum/solidity/tree/'"${commit_hash}"'/"$2")"}'
@@ -13,12 +13,12 @@ function today_utc {
 }
 
 function sync_commit_human_readable_id {
-    git describe --tags --always english/develop
+    git describe --tags --always develop
 }
 
 function sync_commit_link {
     local commit_hash truncated_commit_hash
-    commit_hash=$(git rev-parse --verify english/develop)
+    commit_hash=$(git rev-parse --verify develop)
     truncated_commit_hash=$(echo "$commit_hash" | head -c 8)
 
     echo "[${truncated_commit_hash}](https://github.com/ethereum/solidity/tree/${commit_hash})"

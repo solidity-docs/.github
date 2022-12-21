@@ -43,15 +43,25 @@ jobs:
           # By default, checkout is fetching only the last commit. This will
           # cause "unrelated histories" error. "0" means unlimited fetch-depth.
           fetch-depth: 0
-          path: solidity/
+          # This is the working copy we'll prepare the sync PR in.
+          path: translation/
 
       - name: Configure translation repository
         run: |
-          cd solidity/
+          cd translation/
           git config user.name "$BOT_USERNAME"
           git config user.email "$BOT_EMAIL"
           git remote add english "https://github.com/ethereum/solidity.git"
-          git fetch english develop --tags --quiet
+          git fetch english develop
+
+      - name: Fetch main Solidity repository
+        uses: actions/checkout@v2
+        with:
+          repository: ethereum/solidity
+          fetch-depth: 0
+          # This is the checkout where we can safely fetch the tags from the main Soldity repo and use git describe.
+          # Translation repositories have their own version tags that conflict with the ones in the main repo.
+          path: solidity/
 
       - name: Fetch bot's repository
         uses: actions/checkout@v2
@@ -63,11 +73,12 @@ jobs:
       - name: Load bot configuration from translation-bot.json in the translation repository
         id: bot-config
         run: |
-          bot/scripts/load-translation-bot-config.sh solidity/translation-bot.json
+          bot/scripts/load-translation-bot-config.sh translation/translation-bot.json
 
       - name: Prepare pull request title and description
         if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
         run: |
+          # Use the main repository checkout with tags to get them in `git describe` output.
           cd solidity/
           ../bot/scripts/generate-pr-body.sh
 
@@ -75,15 +86,18 @@ jobs:
         id: check-sync-branch
         if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
         run: |
-          cd solidity/
-          sync_branch="sync-$(git describe --tags --always "english/develop")"
-          .github-workflow/scripts/check-remote-branch.sh "$sync_branch"
+          pushd solidity/
+          sync_branch="sync-$(git describe --tags --always develop)"
           echo "branch_name=$sync_branch" >> "$GITHUB_OUTPUT"
+          popd
+
+          cd translation/
+          ../bot/scripts/check-remote-branch.sh "$sync_branch"
 
       - name: Prepare pull request content
         if: ${{ steps.bot-config.outputs.bot_disabled == 'false' && steps.check-sync-branch.outputs.branch_exists == 'false' }}
         run: |
-          cd solidity/
+          cd translation/
 
           # NOTE: The script will end up not creating a merge commit if there are no new upstream changes.
           # In that case we expect that the PR action will simply not create a PR.
@@ -102,7 +116,7 @@ jobs:
         if: ${{ steps.bot-config.outputs.bot_disabled == 'false' && steps.check-sync-branch.outputs.branch_exists == 'false' }}
         uses: peter-evans/create-pull-request@v3
         with:
-          path: solidity/
+          path: translation/
           token: "${{ secrets.PAT }}"
           commit-message: "${{ env.pr_title }}"
           committer: "${{ env.BOT_USERNAME }} <${{ env.BOT_EMAIL }}>"
