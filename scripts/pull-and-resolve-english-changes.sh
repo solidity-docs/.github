@@ -18,7 +18,7 @@ COMMIT_MESSAGE="$2"
 # We want to include the conflict markers as a part of the merge commit so that they're easy to spot in the PR.
 # The command will also fail if in the main repo there were modifications to files outside
 # of docs/ (these files are deleted in translation repos). These are the conflicts we want to ignore.
-if ! git merge "english/${SOLIDITY_REF}" -m "$COMMIT_MESSAGE"; then
+if ! git merge "${SOLIDITY_REF}" -m "$COMMIT_MESSAGE"; then
     # Unstage everything without aborting the merge.
     # This also "resolves" conflicts by keeping conflicted files as is including the conflict markers.
     git reset .
