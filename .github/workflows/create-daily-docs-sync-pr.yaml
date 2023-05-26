@@ -2,9 +2,9 @@ name: daily docs sync PR
 
 on:
   schedule:
-    # Runs "at minute 44 past midnight" (see https://crontab.guru)
+    # Runs "every Monday at minute 44 past midnight" (see https://crontab.guru)
     # Reason is avoiding full hour peak
-    - cron: "44 0 * * *"
+    - cron: "44 0 * * 1"
 
 env:
   BOT_USERNAME: soldocsbot
