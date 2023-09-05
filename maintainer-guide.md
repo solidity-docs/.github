@@ -71,7 +71,7 @@ git clone git@github.com:solidity-docs/<language-code>.git
 Remove files irrelevant to the translation
 ```
 cd <language-code>
-find . -mindepth 1 -maxdepth 1 ! \( -name "docs" -o -name "CMakeLists.txt" -o -name ".git" \) -exec git rm -r {} \;
+find . -mindepth 1 -maxdepth 1 ! \( -name "docs" -o -name "CMakeLists.txt" -o -name ".readthedocs.yml" -o -name ".git" \) -exec git rm -r {} \;
 ```
 
 Add a README
