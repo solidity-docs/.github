@@ -12,8 +12,32 @@ env:
   GITHUB_REPOSITORY_OWNER: solidity-docs
 
 jobs:
+  collectTranslationRepositories:
+    runs-on: ubuntu-latest
+    outputs:
+      repos: ${{ steps.collect-repos.outputs.repos }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Collect all translation repositories
+        id: collect-repos
+        run: |
+          langs=()
+          # collect all existent language repositories and their respective codes
+          for lang_file in langs/*.json; do
+            name=$(jq --raw-output '.name' "$lang_file")
+            code=$(jq --raw-output '.code' "$lang_file")
+            # concatenate the code and the converted lowercase name
+            # to match te repositories names
+            langs+=("${code}-${name,,}")
+          done
+          # convert to json array
+          langs_json=$(printf '\"%s\",' "${langs[@]}")
+          # Remove the trailing comma
+          echo "repos=[${langs_json%,}]" >> $GITHUB_OUTPUT
+
   createPullRequest:
     runs-on: ubuntu-latest
+    needs: collectTranslationRepositories
     strategy:
       # In the context matrix strategy, fail-fast means, if one of the jobs
       # fails,the rest of the jobs will be canceled. In our case, this can
@@ -23,21 +47,7 @@ jobs:
       matrix:
         # This means, that all pull requests will be processed simultaneously
         # and independently of each other.
-        repos:
-          - bn-bengali
-          - de-german
-          - es-spanish
-          - fa-persian
-          - fr-french
-          - he-hebrew
-          - id-indonesian
-          - ja-japanese
-          - ko-korean
-          - pt-portuguese
-          - ru-russian
-          - tr-turkish
-          - ur-urdu
-          - zh-chinese
+        repos: ${{fromJson(needs.collectTranslationRepositories.outputs.repos)}}
     steps:
       - name: Fetch translation repository
         uses: actions/checkout@v2
