@@ -24,15 +24,19 @@ jobs:
         # This means, that all pull requests will be processed simultaneously
         # and independently of each other.
         repos:
+          - bn-bengali
           - de-german
           - es-spanish
           - fa-persian
           - fr-french
+          - he-hebrew
+          - id-indonesian
           - ja-japanese
           - ko-korean
           - pt-portuguese
           - ru-russian
           - tr-turkish
+          - ur-urdu
           - zh-chinese
     steps:
       - name: Fetch translation repository
