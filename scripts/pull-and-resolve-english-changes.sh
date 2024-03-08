@@ -25,7 +25,7 @@ if ! git merge "${SOLIDITY_REF}" -m "$COMMIT_MESSAGE"; then
 
     # The only changes from the main repo that we're interested in are those in docs/ and
     # CMakeLists.txt, which is parsed by our Sphinx config to determine version. Stage them.
-    git add docs/ CMakeLists.txt
+    git add docs/ CMakeLists.txt .readthedocs.yml
 
     # Reset any files seen by git as modified/deleted to the state from before the merge.
     # We need this for files outside of docs/ that happen to match the path of some file that exists
