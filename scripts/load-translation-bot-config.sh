@@ -53,7 +53,7 @@ function print_option {
 }
 
 # NOTE: If you change defaults here, remember to update the README
-bot_disabled=$(load_option disabled false)
+bot_disabled=$(load_option disabled true)
 randomly_assign_maintainers=$(load_option randomly_assign_maintainers false)
 pr_labels=$(load_option pr_labels '["sync-pr"]')
 
