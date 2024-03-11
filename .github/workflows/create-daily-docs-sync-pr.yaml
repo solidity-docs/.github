@@ -27,7 +27,7 @@ jobs:
             name=$(jq --raw-output '.name' "$lang_file")
             code=$(jq --raw-output '.code' "$lang_file")
             # concatenate the code and the converted lowercase name
-            # to match te repositories names
+            # to match the repositories names
             langs+=("${code}-${name,,}")
           done
           # convert to json array
