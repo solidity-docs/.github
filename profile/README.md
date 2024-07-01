@@ -17,13 +17,13 @@ To find a language to contribute to, browse the [existing repositories](https://
 
 You can also join the [Solidity Docs Community Translations](https://app.element.io/#/room/#solidity-docs-translations:matrix.org) room on Matrix to coordinate with other community translators. 
 
-If your language does not yet have a respository, please check out the [maintainer guide](maintainer-guide.md) on how to start a new language.
+If your language does not yet have a repository, please check out the [maintainer guide](../maintainer-guide.md) on how to start a new language.
 
 ### Translation Process
 
 After carefully [evaluating](https://github.com/ethereum/solidity/issues/10119) different options, we decided in favor of keeping the technicalities of the translation process up to the individual contributors and decided against using a translation tool.
 
-However, in order to make things easier for the contributors and assure some sort of standard, we are proposing to respect the [translation progress checklist](progress-checklist.md) and working in a translation team of min. 2 people.
+However, in order to make things easier for the contributors and assure some sort of standard, we are proposing to respect the [translation progress checklist](../progress-checklist.md) and working in a translation team of min. 2 people.
 
 ### Acknowledgements
 
